@@ -10,6 +10,18 @@ export const todosPage = () => {
     "bg-gray-200"
   );
 
+  const btnCreateTodo = document.createElement("button");
+
+  btnCreateTodo.classList.add(
+    "bg-blue-500",
+    "text-white",
+    "p-2",
+    "rounded",
+    "hover:bg-blue-600",
+    "mb-2"
+  );
+  btnCreateTodo.textContent = "Create Todo";
+
   const btnHome = document.createElement("button");
 
   btnHome.classList.add(
@@ -74,7 +86,10 @@ export const todosPage = () => {
   table.appendChild(tbody);
 
   container.appendChild(btnHome);
-  fetch("http://localhost:4000/todos")
+  container.appendChild(btnCreateTodo);
+  fetch("http://localhost:4000/todos", {
+    credentials: "include",
+  })
     .then((response) => response.json())
     .then((data) => {
       data.todos.forEach((todo) => {
