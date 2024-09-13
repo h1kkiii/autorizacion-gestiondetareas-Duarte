@@ -10,18 +10,6 @@ export const todosPage = () => {
     "bg-gray-200"
   );
 
-  const btnCreateTodo = document.createElement("button");
-
-  btnCreateTodo.classList.add(
-    "bg-blue-500",
-    "text-white",
-    "p-2",
-    "rounded",
-    "hover:bg-blue-600",
-    "mb-2"
-  );
-  btnCreateTodo.textContent = "Create Todo";
-
   const btnHome = document.createElement("button");
 
   btnHome.classList.add(
@@ -43,6 +31,30 @@ export const todosPage = () => {
 
   title.classList.add("text-3xl", "font-bold", "mb-4");
   title.textContent = "List of Todos";
+
+  const btnCreateTodo = document.createElement("button");
+
+  btnCreateTodo.classList.add(
+    "bg-gray-500",
+    "text-white",
+    "p-2",
+    "rounded",
+    "hover:bg-gray-600",
+    "mb-4"
+  );
+
+  btnCreateTodo.textContent = "Create Todo";
+
+  btnCreateTodo.addEventListener("click", async () => {
+    const response = await fetch("http://localhost:4000/", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    try {
+      window.location.pathname = "http://localhost:4000/todos/create";
+    } catch (error) {}
+  });
 
   const table = document.createElement("table");
 
@@ -72,10 +84,16 @@ export const todosPage = () => {
   th4.classList.add("border", "px-4", "py-2");
   th4.textContent = "Owner Id";
 
+  const th5 = document.createElement("th");
+  th5.classList.add("border", "px-4", "py-2");
+  th5.textContent = "Actions";
+  th5.classList.add("border", "px-4", "py-2");
+
   tr.appendChild(th1);
   tr.appendChild(th2);
   tr.appendChild(th3);
   tr.appendChild(th4);
+  tr.appendChild(th5);
 
   thead.appendChild(tr);
 
@@ -113,10 +131,42 @@ export const todosPage = () => {
         td4.classList.add("border", "px-4", "py-2");
         td4.textContent = todo.owner;
 
+        const td5 = document.createElement("button");
+        td5.classList.add(
+          "bg-blue-500",
+          "text-white",
+          "p-2",
+          "rounded",
+          "hover:bg-blue-600",
+          "mb-4",
+          "mr-2",
+          "cursor-pointer",
+          "px-4",
+          "py-2"
+        );
+        td5.textContent = "Edit";
+
+        const td6 = document.createElement("button");
+        td6.classList.add(
+          "bg-red-500",
+          "text-white",
+          "p-2",
+          "rounded",
+          "hover:bg-red-600",
+          "mb-4",
+          "cursor-pointer",
+          "px-4",
+          "py-2",
+          "mr-2"
+        );
+        td6.textContent = "Delete";
+
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
+        tr.appendChild(td5);
+        tr.appendChild(td6);
         tbody.appendChild(tr);
       });
     });

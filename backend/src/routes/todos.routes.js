@@ -5,6 +5,6 @@ import validarJwt from "../middlewares/validar-jwt.js";
 const todosRouter = Router();
 
 todosRouter.get("/", validarJwt, ctrl.getAllTodos);
-todosRouter.post("/", validarJwt, ctrl.createTodoByOwner);
+todosRouter.post("/create", validarJwt, ctrl.createTodoByOwner);
 
 export { todosRouter };
